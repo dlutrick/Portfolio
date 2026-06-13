@@ -57,10 +57,10 @@
 .contact__form { display: flex; flex-direction: column; }
 .contact__form-group { margin-bottom: 16px; }
 .contact__form-group label { display: block; font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
-.contact__form-group input, .contact__form-group textarea { width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-family: var(--font-body); font-size: 14px; color: var(--text-primary); outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+.contact__form-group input, .contact__form-group textarea { width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-family: var(--font-body); font-size: 14px; color: var(--text-primary); outline: none; transition: border-color 0.2s; -webkit-appearance: none; appearance: none; }
 .contact__form-group input:focus, .contact__form-group textarea:focus { border-color: var(--green-border); }
 .contact__form-group input::placeholder, .contact__form-group textarea::placeholder { color: var(--text-muted); }
-.contact__form-group textarea { min-height: 130px; resize: vertical; -webkit-appearance: none; appearance: none;}
+.contact__form-group textarea { min-height: 130px; resize: vertical; }
 .contact__info { display: flex; flex-direction: column; gap: 12px; }
 .contact__card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; text-decoration: none; transition: border-color 0.2s,transform 0.2s; }
 .contact__card:hover { border-color: var(--green-border); transform: translateX(4px); }
