@@ -131,8 +131,8 @@ export const POSTS = [
   },
   {
     id: 'raspberry-pi-character',
-    title: 'Turning a Raspberry Pi Into a Character',
-    subtitle: 'How I built Dum Dum — a voice AI Easter Island Head that runs headlessly inside a 3D printed moai.',
+    title: 'Building a Voice AI Easter Island Head',
+    subtitle: 'How I turned a 3D printed moai, a Raspberry Pi 5, and a handful of APIs into a talking prop.',
     category: 'aidevice',
     catLabel: 'AI Character Device',
     date: 'June 2025',
@@ -140,18 +140,18 @@ export const POSTS = [
     excerpt: "The goal was simple: press a button, talk to an Easter Island Head. The execution was not simple.",
     body: `
 <h2>The idea</h2>
-<p>The goal was to build a voice-activated AI prop based on Dum Dum, the Easter Island Head from Night at the Museum. A physical object that listens, responds in character, animates with LEDs, and speaks in a custom voice. The whole thing needed to live inside a 3D printed moai head as a Father's Day gift.</p>
-<p>Press a button, ask Dum Dum a question, get a response in his voice. No screen. No keyboard. No setup. Just a rock that talks.</p>
+<p>The goal was to build a voice-activated AI prop based on the Easter Island Head from Night at the Museum. A physical object that listens, responds in character, animates with LEDs, and speaks in a custom voice. The whole thing needed to live inside a 3D printed moai head as a Father's Day gift.</p>
+<p>Press a button, ask a question, get a response in character. No screen. No keyboard. No setup. Just a rock that talks back.</p>
 <p>The stack: Raspberry Pi 5, OpenAI Whisper for transcription, GPT-4o-mini for the brain, ElevenLabs for voice synthesis, WS2812B NeoPixels for LED animation, and a MAX98357A I2S amplifier for audio output. Everything running headlessly on boot via a systemd service.</p>
 
 <h2>The voice pipeline</h2>
-<p>The core loop is straightforward: button press starts recording, energy-threshold VAD detects when the user stops talking, audio goes to Whisper for transcription, the transcript goes to GPT-4o-mini with the character prompt and conversation history, the response goes to ElevenLabs, the MP3 comes back and gets converted to WAV via ffmpeg, then played through the amp via aplay.</p>
-<p>The conversation history is a rolling 20-message buffer. Without it, every response felt disconnected. With it, Dum Dum actually remembers what you were just talking about, which makes the whole thing feel dramatically more alive.</p>
+<p>The core loop is straightforward: button press starts recording, energy-threshold VAD detects when you stop talking, audio goes to Whisper for transcription, the transcript goes to GPT-4o-mini with the character prompt and conversation history, the response goes to ElevenLabs, the MP3 comes back and gets converted to WAV via ffmpeg, then played through the amp via aplay.</p>
+<p>The conversation history is a rolling 20-message buffer. Without it, every response felt disconnected. With it, the head actually remembers what you were just talking about, which makes the whole thing feel dramatically more alive.</p>
 
 <h2>The character</h2>
-<p>Building the system prompt for Dum Dum was more work than expected. The character has specific speech patterns from the movie: he calls you "Dum-dum," uses doubled words for emphasis, and never says "gum" — only "gum gum."</p>
-<p>The first version overdid it. Every single word was doubled, which got grating fast. Pulled it back to using the doubled speech only for emphasis. One hard rule remained non-negotiable: gum is always gum gum.</p>
-<p>There was also a subtle character detail that took a pass to fix: Dum Dum doesn't call himself "Dum Dum." That's what he calls you. Getting that right made the character feel authentic rather than like a generic chatbot wearing a costume.</p>
+<p>Building the system prompt took more work than expected. The head has specific speech patterns from the movie: it calls you "Dum-dum," uses doubled words for emphasis, and never says "gum" on its own. It's always "gum gum."</p>
+<p>The first version overdid it. Every single word was doubled, which got grating fast. Pulled it back to using the doubled speech only for emphasis, with one hard rule: gum is always gum gum.</p>
+<p>There was also a subtle detail that took a pass to fix: the head doesn't have a name. "Dum-dum" is what it calls you, not itself. It's the Easter Island Head. Getting that right made the character feel like the actual prop from the movie rather than a chatbot with a costume on.</p>
 
 <h2>The LED system</h2>
 <p>The NeoPixel ring sits in a pocket in the forehead of the head piece and tracks pipeline state in real time. Amber pulse at idle. Blue rotate when listening. Purple swirl when thinking. White pulse when speaking. Each state is distinct enough that you know exactly what the head is doing without any screen or sound cue.</p>
@@ -159,7 +159,7 @@ export const POSTS = [
 
 <h2>Latency masking</h2>
 <p>Total round-trip latency through the pipeline is 3-6 seconds depending on network conditions. That's too long. The silence broke immersion completely.</p>
-<p>The fix was a pre-generated audio clip in Dum Dum's own voice: "Me think now... Hmmmm..." It plays immediately after recording ends, running in a background subprocess. When the API response is ready, the subprocess gets terminated. If the response comes back quickly, the clip cuts off mid-hum — which actually sounds natural, like the character interrupted himself to start talking. It masks the latency and adds personality at the same time.</p>
+<p>The fix was a pre-generated audio clip in the head's own voice: "Me think now... Hmmmm..." It plays immediately after recording ends, running in a background subprocess. When the API response is ready, the subprocess gets terminated. If the response comes back quickly, the clip cuts off mid-hum, which sounds natural, like the character interrupted himself to start talking. It masks the latency and adds personality at the same time.</p>
     `,
     wrong: {
       title: 'sudo killed the API keys',
@@ -178,7 +178,7 @@ export const POSTS = [
     excerpt: "I spent more time on a microphone than on the AI. The Pi 5's I2S implementation has a problem that nobody warned me about.",
     body: `
 <h2>Why I2S seemed like the right call</h2>
-<p>The SPH0645 is a MEMS I2S microphone — tiny, clean audio, no moving parts, perfect for hiding inside a sealed prop. At roughly the size of a fingernail, it can sit right behind the nose pinholes in the 3D print. I soldered it to the perfboard early in the build, confident it would work.</p>
+<p>The SPH0645 is a MEMS I2S microphone: tiny, clean audio, no moving parts, perfect for hiding inside a sealed prop. At roughly the size of a fingernail, it can sit right behind the nose pinholes in the 3D print. I soldered it to the perfboard early in the build, confident it would work.</p>
 <p>It never worked. Not once.</p>
 
 <h2>The dual I2S bus problem</h2>
@@ -186,64 +186,64 @@ export const POSTS = [
 <p>Every overlay combination either brought up the mic and killed the DAC, or brought up the DAC and left the mic invisible to the system. There was no configuration that ran both simultaneously.</p>
 <p>Here's what was tried, in order:</p>
 <ul>
-<li><strong>googlevoicehat-soundcard</strong> — designed for exactly this use case on older Pi hardware. Ignored on Pi 5.</li>
-<li><strong>i2s-mems-mic</strong> — mic showed up in arecord but DAC disappeared.</li>
-<li><strong>adau7002-simple</strong> — same result.</li>
-<li><strong>sph0645-microphone</strong> — the chip's own overlay. No mic, DAC survives.</li>
-<li><strong>Custom device tree overlay</strong> — compiled from scratch, attempted to assign separate GPIO pins. Pi 5 ignored it.</li>
-<li><strong>i2s-gpio28-31 secondary bus</strong> — Pi 5 doesn't expose this bus in the same way as Pi 4. Dead end.</li>
+<li><strong>googlevoicehat-soundcard</strong>: designed for exactly this use case on older Pi hardware. Ignored on Pi 5.</li>
+<li><strong>i2s-mems-mic</strong>: mic showed up in arecord but DAC disappeared.</li>
+<li><strong>adau7002-simple</strong>: same result.</li>
+<li><strong>sph0645-microphone</strong>: the chip's own overlay. No mic, DAC survives.</li>
+<li><strong>Custom device tree overlay</strong>: compiled from scratch, attempted to assign separate GPIO pins. Pi 5 ignored it.</li>
+<li><strong>i2s-gpio28-31 secondary bus</strong>: Pi 5 doesn't expose this bus the same way as Pi 4. Dead end.</li>
 </ul>
 <p>After six attempts spanning multiple sessions, the conclusion was that the Pi 5's I2S implementation just isn't ready for dual-device setups at the community support level. There may be a path through custom kernel drivers or manufacturer-provided overlays that didn't exist at the time of this build.</p>
 
 <h2>The actual fix</h2>
-<p>Switched to a USB lapel microphone. The capsule is small enough to thread through the nose pinholes in the 3D print and sits flush against the interior wall. Audio quality is excellent for Whisper transcription — better, honestly, than the I2S mic would have been at the distances involved inside a sealed enclosure.</p>
+<p>Switched to a USB lapel microphone. The capsule is small enough to thread through the nose pinholes in the 3D print and sits flush against the interior wall. Audio quality is excellent for Whisper transcription, better honestly than the I2S mic would have been at the distances involved inside a sealed enclosure.</p>
 <p>The SPH0645 is still soldered to the perfboard. It just sits there. No overlay loads it. It's not hurting anything.</p>
 
 <h2>The environment setup saga</h2>
 <p>Before any of the I2S debugging, there was the OS problem. The initial Pi 400 was running Raspbian Buster. The package repos were broken for anything modern. Python 3.11 wasn't available via apt. libffi was the wrong version.</p>
-<p>The first attempt was building Python 3.11 from source — a 15-minute compile. Hit a missing _ctypes module because libffi-dev wasn't installed before the build. Rebuilt. Then hit a libffi.so.8 vs libffi.so.7 mismatch that a symlink couldn't bridge.</p>
-<p>Flashing a fresh Bookworm image took 20 minutes and fixed everything instantly. Every dependency resolved on the first try. The lesson here is obvious in retrospect: don't fight old OS versions. The time spent fighting Buster would have flashed Bookworm six times over.</p>
+<p>First attempt: build Python 3.11 from source, a 15-minute compile. Hit a missing _ctypes module because libffi-dev wasn't installed before the build. Rebuilt. Then hit a libffi.so.8 vs libffi.so.7 mismatch that a symlink couldn't bridge.</p>
+<p>Flashing a fresh Bookworm image took 20 minutes and fixed everything instantly. Every dependency resolved on the first try. The lesson is obvious in retrospect: don't fight old OS versions. The time spent fighting Buster would have flashed Bookworm six times over.</p>
     `,
     wrong: {
       title: 'I soldered the mic before testing it',
-      body: "The SPH0645 went onto the perfboard during the early hardware assembly phase, before the software stack was anywhere near ready. It felt efficient at the time — get the hardware done while figuring out the software. The problem is that by the time I discovered the I2S bus conflict, the mic was already permanently soldered in place. Desoldering it would have risked damaging the perfboard and other components. So it stays. If I'd done even a basic arecord test before soldering, I'd have caught the conflict immediately and saved the time spent on all six overlay attempts. Test before you solder.",
+      body: "The SPH0645 went onto the perfboard during early hardware assembly, before the software stack was anywhere near ready. It felt efficient at the time. The problem is that by the time I discovered the I2S bus conflict, the mic was already permanently soldered in place. Desoldering it would have risked damaging the perfboard and other components. So it stays. If I'd done even a basic arecord test before soldering, I'd have caught the conflict immediately and saved the time spent on all six overlay attempts. Test before you solder.",
     },
     relatedPosts: ['raspberry-pi-character', 'dumdum-voice-pipeline'],
   },
   {
     id: 'dumdum-voice-pipeline',
-    title: 'Building the Dum Dum Voice Pipeline',
-    subtitle: 'Whisper, GPT-4o-mini, ElevenLabs, and the latency problem that almost killed the immersion.',
+    title: 'Building the Voice Pipeline for an AI Prop',
+    subtitle: 'Whisper, GPT-4o-mini, ElevenLabs, and the 3-6 second silence that almost killed the immersion.',
     category: 'aidevice',
     catLabel: 'AI Character Device',
     date: 'June 2025',
     readTime: '7 min read',
-    excerpt: "Three APIs, one character, and a 3-6 second silence that made the whole thing feel broken. Here's how I fixed it.",
+    excerpt: "Three APIs, one character, and a silence that made the whole thing feel broken. Here's how I fixed it.",
     body: `
 <h2>The pipeline</h2>
-<p>The voice pipeline runs in a single Python loop. Button press triggers recording. Energy-threshold VAD monitors RMS audio levels in real time and stops recording after about 1.2 seconds of silence. The audio file goes to OpenAI Whisper for transcription. The transcript gets appended to the conversation history and sent to GPT-4o-mini with the character system prompt. The response comes back, goes to ElevenLabs with the custom Dum Dum voice ID, and returns as an MP3. ffmpeg converts it to WAV. aplay plays it through the MAX98357A amp.</p>
+<p>The voice pipeline runs in a single Python loop. Button press triggers recording. Energy-threshold VAD monitors RMS audio levels in real time and stops recording after about 1.2 seconds of silence. The audio file goes to OpenAI Whisper for transcription. The transcript gets appended to the conversation history and sent to GPT-4o-mini with the character system prompt. The response comes back, goes to ElevenLabs with the custom voice ID, and returns as an MP3. ffmpeg converts it to WAV. aplay plays it through the MAX98357A amp.</p>
 <p>That's the happy path. Getting to a reliable happy path took a while.</p>
 
 <h2>Audio in and out</h2>
-<p>Getting audio working on the Pi was its own project. The Pi has no mic input, so everything goes through USB. PortAudio wasn't installed by default — needed portaudio19-dev. The HyperX USB mic worked for development but was obviously too large for a sealed prop, which is what led to the I2S mic rabbit hole covered in the previous post.</p>
+<p>Getting audio working on the Pi was its own project. The Pi has no mic input, so everything goes through USB. PortAudio wasn't installed by default and needed portaudio19-dev. The HyperX USB mic worked for development but was obviously too large for a sealed prop, which is what led to the I2S mic rabbit hole covered in the previous post.</p>
 <p>For output, the MAX98357A I2S amp required enabling the hifiberry-dac overlay in config.txt and configuring /etc/asound.conf. Audio device numbers on the Pi change after every reboot, which caused multiple debugging sessions where everything worked, then stopped working the next day for no apparent reason. The fix is querying the device list on startup rather than hardcoding device numbers.</p>
-<p>mpg123 was the first playback attempt — it kept failing under sudo due to PulseAudio permission issues. Switching to ffmpeg for conversion and aplay for playback bypasses PulseAudio entirely. Much more reliable.</p>
+<p>mpg123 was the first playback attempt. It kept failing under sudo due to PulseAudio permission issues. Switching to ffmpeg for conversion and aplay for playback bypasses PulseAudio entirely. Much more reliable.</p>
 
 <h2>Voice activity detection</h2>
-<p>The first recording implementation used a fixed 6-second window. Every interaction felt robotic and slow. Tried webrtcvad twice — both times it either froze indefinitely or failed to detect speech at all. The likely cause was a format mismatch between the USB mic's audio stream and what webrtcvad expected.</p>
-<p>Energy threshold detection solved it. Monitor RMS audio energy in 50ms chunks. Start capturing when energy crosses the threshold. Stop after 1.2 seconds of sustained silence. It handles natural pauses mid-sentence without cutting off, and it ends the recording promptly when the user actually stops talking. Simple, reliable, and no external dependency.</p>
+<p>The first recording implementation used a fixed 6-second window. Every interaction felt robotic and slow. Tried webrtcvad twice and both times it either froze indefinitely or failed to detect speech at all. The likely cause was a format mismatch between the USB mic's audio stream and what webrtcvad expected.</p>
+<p>Energy threshold detection solved it. Monitor RMS audio energy in 50ms chunks. Start capturing when energy crosses the threshold. Stop after 1.2 seconds of sustained silence. It handles natural pauses mid-sentence without cutting off, and ends the recording promptly when you actually stop talking. Simple, reliable, no external dependency.</p>
 
 <h2>The latency problem</h2>
 <p>With Whisper transcription, GPT response generation, and ElevenLabs synthesis all running sequentially, the total round-trip is 3-6 seconds depending on network conditions. The first time this ran end-to-end, the silence between speaking and hearing a response felt like the whole thing had crashed. It killed the illusion completely.</p>
-<p>The fix was a thinking sound. A short audio clip, generated in Dum Dum's actual voice, saying "Me think now... Hmmmm..." It plays immediately when recording ends, in a background subprocess. The main process continues hitting the APIs. When the response is ready, it terminates the subprocess and starts playing the actual response.</p>
-<p>If the APIs respond quickly, the clip cuts off mid-hum. That turned out to be a happy accident — it sounds exactly like the character started to think, then figured it out and interrupted himself. It adds personality. The 3-6 second wait that felt broken now feels like the head is genuinely working through something.</p>
+<p>The fix was a thinking sound. A short audio clip generated in the prop's actual voice, saying "Me think now... Hmmmm..." It plays immediately when recording ends, in a background subprocess. The main process continues hitting the APIs. When the response is ready, it terminates the subprocess and starts playing the actual response.</p>
+<p>If the APIs respond quickly, the clip cuts off mid-hum. That turned out to be a happy accident. It sounds exactly like the character started to think, then figured it out and interrupted himself. It adds personality. The 3-6 second wait that felt broken now feels like the head is genuinely working through something.</p>
 
-<h2>The conversation history</h2>
-<p>A rolling 20-message buffer stores every exchange. It gets passed in full with each API call. Without it, every response was context-free. Dum Dum would ask your name, you'd tell him, and two exchanges later he'd have no idea who you were. With the history, he tracks what's been discussed, builds on previous answers, and reacts to things said earlier in the conversation. It's the difference between talking to a chatbot and talking to a character.</p>
+<h2>Conversation history</h2>
+<p>A rolling 20-message buffer stores every exchange and gets passed in full with each API call. Without it, every response was context-free. The head would ask your name, you'd tell it, and two exchanges later it had no idea who you were. With the history, it tracks what's been discussed, builds on previous answers, and reacts to things said earlier in the conversation. The difference between talking to a chatbot and talking to a character.</p>
     `,
     wrong: {
       title: 'mpg123 and sudo do not get along',
-      body: "Early playback used mpg123, which works fine when you run the script directly. Run it under sudo (which the systemd service does) and PulseAudio locks it out entirely. The error message is not obvious about why this is happening. Spent time thinking it was a codec issue, then an audio device issue, before realizing it was a permissions/PulseAudio conflict specific to running as root. The fix — converting to WAV with ffmpeg and using aplay — is actually better anyway. aplay is lower-level, more reliable, and has no PulseAudio dependency. Should have started there.",
+      body: "Early playback used mpg123, which works fine when you run the script directly. Run it under sudo (which the systemd service does) and PulseAudio locks it out entirely. The error message is not obvious about why. Spent time thinking it was a codec issue, then an audio device issue, before realizing it was a permissions conflict specific to running as root. The fix, converting to WAV with ffmpeg and using aplay, is actually better anyway. aplay is lower-level, more reliable, and has no PulseAudio dependency. Should have started there.",
     },
     relatedPosts: ['raspberry-pi-character', 'dumdum-i2s-problem', 'dumdum-3d-design'],
   },
@@ -258,21 +258,20 @@ export const POSTS = [
     excerpt: "Fitting a Raspberry Pi 5, audio hardware, LEDs, and a speaker inside a 240mm moai head required more TinkerCAD sessions than I'd like to admit.",
     body: `
 <h2>Starting with an STL</h2>
-<p>The moai model came from an online STL library — a solid, decorative Easter Island head with no interior space whatsoever. Imported into TinkerCAD at 240mm tall and started modifying from there.</p>
-<p>The first decision was where to split the model. The head needed to come apart for assembly and maintenance, and the split needed to happen at a logical point on the character. The neck line at 52mm up from the base was the obvious choice — it's a natural seam, it gives the head piece enough interior volume for the speaker, LEDs, and mic, and it puts the Pi and electronics in the chest/base piece where there's more room.</p>
+<p>The moai model came from an online STL library: a solid, decorative Easter Island head with no interior space whatsoever. Imported into TinkerCAD at 240mm tall and started modifying from there.</p>
+<p>The first decision was where to split the model. The head needed to come apart for assembly and maintenance, and the split needed to happen at a logical point. The neck line at 52mm up from the base was the obvious choice. It's a natural seam, it gives the head piece enough interior volume for the speaker, LEDs, and mic, and it puts the Pi and electronics in the chest/base piece where there's more room.</p>
 
 <h2>The chest piece</h2>
-<p>The chest piece is where all the heavy hardware lives. The Pi 5 mounts vertically on velcro against the back wall — velcro because the Pi occasionally needs to come out, and screws would require threaded inserts in the print. The perfboard sits beside it with all the components: the MAX98357A amp, the NeoPixel ring wiring, the push button wiring, and the SPH0645 that never worked but gets to stay anyway.</p>
-<p>The exterior has a USB-C cable exit hole in the back wall for power, a button hole on the side at a height that feels natural to press, and 16 ventilation holes across the back panel for the Pi 5's active cooler fan. The active cooler runs warm under sustained API load, and without airflow the interior temperature climbs fast.</p>
+<p>The chest piece is where all the heavy hardware lives. The Pi 5 mounts vertically on velcro against the back wall. Velcro because the Pi occasionally needs to come out, and screws would require threaded inserts in the print. The perfboard sits beside it with all the components: the MAX98357A amp, the NeoPixel ring wiring, the push button wiring, and the SPH0645 that never worked but gets to stay anyway.</p>
+<p>The exterior has a USB-C cable exit hole in the back wall for power, a button hole on the side at a height that feels natural to press, and 16 ventilation holes across the back panel for the Pi 5's active cooler fan. The cooler runs warm under sustained API load, and without airflow the interior temperature climbs fast.</p>
 
 <h2>The head piece</h2>
-<p>The head piece has three functional elements. Speaker grille holes in the mouth — rows of small circles that let sound out while looking like part of the character's expression. Mic pinholes in the nose — four small holes that let the USB lapel capsule pick up audio from inside the sealed head. And an LED pocket in the forehead — a recessed cylinder sized exactly for the 12-LED NeoPixel ring, sitting just behind the surface of the print so the light diffuses through the plastic rather than blasting out a visible hotspot.</p>
+<p>The head piece has three functional elements. Speaker grille holes in the mouth: rows of small circles that let sound out while looking like part of the character's expression. Mic pinholes in the nose: four small holes that let the USB lapel capsule pick up audio from inside the sealed head. And an LED pocket in the forehead: a recessed cylinder sized exactly for the 12-LED NeoPixel ring, sitting just behind the surface of the print so the light diffuses through the plastic rather than blasting out a visible hotspot.</p>
 <p>The two pieces connect via a friction-fit lip: a 10mm deep male/female joint with 0.3mm of tolerance. Tight enough that the head doesn't wobble, loose enough that it can be separated without tools.</p>
 
 <h2>Print settings and material</h2>
-<p>Both pieces printed in PLA on an FDM printer. Standard 0.2mm layer height, 20% infill for the solid sections, 4 perimeters on the walls for rigidity. The head piece printed upright with supports inside the mouth opening. The chest piece printed on its back with the interior facing up.</p>
-<p>Total print time across both pieces was roughly 18 hours. No failures on either piece, which was lucky given the size and the number of small features (the ventilation holes especially tend to cause stringing).</p>
-<p>The finish is raw PLA for now. The plan is gray filler primer to fill the layer lines and get a stone texture, followed by airbrushing with gray and brown tones to match the movie prop.</p>
+<p>Both pieces printed in PLA. Standard 0.2mm layer height, 20% infill for the solid sections, 4 perimeters on the walls for rigidity. The head piece printed upright with supports inside the mouth opening. The chest piece printed on its back with the interior facing up.</p>
+<p>Total print time across both pieces was roughly 18 hours. The plan after delivery is gray filler primer to fill the layer lines and get a stone texture, followed by airbrushing with gray and brown tones to match the movie prop.</p>
 
 <h2>Assembly order</h2>
 <p>Getting everything inside in the right order matters. The speaker goes in the head piece first, wired through to the chest before the pieces join. The LED ring drops into the forehead pocket and the wires run down through a channel in the neck joint. The USB lapel mic capsule feeds up through the nose pinholes from inside. Then the head piece sits on the chest piece and the friction lip clicks into place.</p>
@@ -280,7 +279,7 @@ export const POSTS = [
     `,
     wrong: {
       title: 'Pi 5 spec sheet dimensions are wrong',
-      body: "Downloaded the official Raspberry Pi 5 mechanical drawing from the Pi Foundation website and built the interior layout around those dimensions. First test fit of the actual board: it didn't fit. The spec sheet dimensions for the board were slightly off from the real thing, and the active cooler adds height that the drawing didn't account for at all. Had to go back into TinkerCAD and rework the interior cavity with the actual board in hand. Lesson: measure your components with calipers before modeling anything around them. Spec sheets lie. The board in your hand doesn't.",
+      body: "Downloaded the official Raspberry Pi 5 mechanical drawing from the Pi Foundation website and built the interior layout around those dimensions. First test fit of the actual board: it didn't fit. The spec sheet dimensions were slightly off from the real thing, and the active cooler adds height that the drawing didn't account for at all. Had to go back into TinkerCAD and rework the interior cavity with the actual board in hand. Lesson: measure your components with calipers before modeling anything around them. Spec sheets lie. The board in your hand doesn't.",
     },
     relatedPosts: ['raspberry-pi-character', 'dumdum-voice-pipeline'],
   },
