@@ -64,9 +64,9 @@ export default function Home() {
             </div>
             <div className="about__stats reveal reveal-delay-2">
               {[
-                { number: '3+', label: 'Products in development' },
+                { number: '2+', label: 'Products in development' },
                 { number: 'AI-first', label: 'Development approach' },
-                { number: '0→', label: 'Idea to shipped product' },
+                { number: '1→', label: 'Idea to shipped product' },
                 { number: 'Full-stack', label: 'React · Node · MongoDB' },
               ].map((s) => (
                 <div key={s.label} className="about__stat-card">
