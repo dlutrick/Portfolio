@@ -3,8 +3,8 @@ import './ProjectCard.css'
 
 const PROJECT_PHOTOS = {
   aidevice: '/assets/moai-statue.jpg',
-  // plotdr: '/assets/plotdr-screenshot.jpg',
-  // hookdr: '/assets/hookdr-screenshot.jpg',
+  plotdr: '/assets/plotdr.png',
+  hookdr: '/assets/hookdr.png',
 }
 
 const THUMB_ICONS = {
