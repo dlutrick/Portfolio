@@ -186,7 +186,7 @@ export default function Home() {
             <div className="contact__info reveal reveal-delay-3">
               {[
                 { label: 'Email', value: 'hello@davidlutrick.com', href: 'mailto:hello@davidlutrick.com' },
-                { label: 'GitHub', value: 'github.com/davidlutrick', href: 'https://github.com/dlutrick' },
+                { label: 'GitHub', value: 'github.com/dlutrick', href: 'https://github.com/dlutrick' },
                 { label: 'LinkedIn', value: 'linkedin.com/in/davidlutrick', href: 'https://linkedin.com/in/davidlutrick' },
               ].map((link) => (
                 <a key={link.label} href={link.href} className="contact__card" target={link.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
