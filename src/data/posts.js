@@ -145,6 +145,7 @@ export const POSTS = [
 <p>The stack: Raspberry Pi 5, OpenAI Whisper for transcription, GPT-4o-mini for the brain, ElevenLabs for voice synthesis, WS2812B NeoPixels for LED animation, and a MAX98357A I2S amplifier for audio output. Everything running headlessly on boot via a systemd service.</p>
 
 <h2>The voice pipeline</h2>
+<img src="/assets/dumdum-architecture.png" alt="Voice pipeline architecture diagram" style="width:100%;border-radius:12px;border:1px solid #242424;margin:24px 0" />
 <p>The core loop is straightforward: button press starts recording, energy-threshold VAD detects when you stop talking, audio goes to Whisper for transcription, the transcript goes to GPT-4o-mini with the character prompt and conversation history, the response goes to ElevenLabs, the MP3 comes back and gets converted to WAV via ffmpeg, then played through the amp via aplay.</p>
 <p>The conversation history is a rolling 20-message buffer. Without it, every response felt disconnected. With it, the head actually remembers what you were just talking about, which makes the whole thing feel dramatically more alive.</p>
 
