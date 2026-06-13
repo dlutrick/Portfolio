@@ -71,4 +71,4 @@
 .contact__card-coming { font-size: 10px; color: var(--text-muted); border: 1px solid var(--border); padding: 2px 7px; border-radius: 4px; margin-top: 3px; display: inline-block; }
 
 @media (max-width: 900px) { .contact__grid { grid-template-columns: 1fr; gap: 48px; } .about__grid { grid-template-columns: 1fr; gap: 48px; } }
-@media (max-width: 768px) { .hero { padding: 100px 20px 72px; } .hero__scroll { display: none; } }
+@media (max-width: 768px) { .hero { padding: 72px 20px 60px; } .hero__scroll { display: none; } }
