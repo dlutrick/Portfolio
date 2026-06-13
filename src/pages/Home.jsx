@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { PROJECTS_LIST } from '../data/projects'
@@ -29,36 +28,24 @@ export default function Home() {
 
   return (
     <>
-      {/* HERO */}
       <section id="hero" className="hero">
         <div className="hero__grid" />
         <div className="hero__glow" />
         <div className="hero__inner">
           <div className="hero__eyebrow">Available for freelance work</div>
-          <h1 className="hero__name">
-            David<br /><span className="hero__accent">Lutrick</span>
-          </h1>
-          <p className="hero__sub">
-            AI Product Builder, Full-Stack Developer, and SaaS Founder building intelligent software systems that solve real-world problems.
-          </p>
+          <h1 className="hero__name">David<br /><span className="hero__accent">Lutrick</span></h1>
+          <p className="hero__sub">AI Product Builder, Full-Stack Developer, and SaaS Founder building intelligent software systems that solve real-world problems.</p>
           <div className="hero__actions">
             <button className="btn-primary" onClick={() => scrollTo('projects')}>
               View Projects
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
-            <button className="btn-secondary" onClick={() => scrollTo('contact')}>
-              Contact Me
-            </button>
+            <button className="btn-secondary" onClick={() => scrollTo('contact')}>Contact Me</button>
           </div>
         </div>
-        <div className="hero__scroll">
-          <div className="hero__scroll-line" />
-        </div>
+        <div className="hero__scroll"><div className="hero__scroll-line" /></div>
       </section>
 
-      {/* ABOUT */}
       <section id="about" className="about">
         <div className="container">
           <div className="about__grid">
@@ -70,7 +57,7 @@ export default function Home() {
               <p>I figured out that with the right tools and enough stubbornness, you don't need a CS degree to ship real products. I've built full-stack applications, wired up custom AI workflows, and figured out entire product architectures from scratch, all while working a day job.</p>
               <p>I care about execution. Not just ideas on a whiteboard, but things that actually ship and work.</p>
               <div className="about__tags">
-                {['AI Development', 'SaaS Architecture', 'Storytelling', 'Automation', 'Product Strategy', 'Self-taught'].map((t) => (
+                {['AI Development','SaaS Architecture','Storytelling','Automation','Product Strategy','Self-taught'].map((t) => (
                   <span key={t} className="about__tag">{t}</span>
                 ))}
               </div>
@@ -92,14 +79,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROJECTS */}
       <section id="projects" className="projects">
         <div className="container">
           <div className="section-label reveal">Work</div>
           <h2 className="section-title reveal reveal-delay-1">Featured Projects</h2>
-          <p className="section-sub reveal reveal-delay-2">
-            Products I've designed, built, and shipped. Writing tools, content analyzers, voice hardware.
-          </p>
+          <p className="section-sub reveal reveal-delay-2">Products I've designed, built, and shipped. Writing tools, content analyzers, voice hardware.</p>
           <div className="projects__grid">
             {PROJECTS_LIST.map((p, i) => (
               <div key={p.id} className={`reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
@@ -110,35 +94,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BUILD LOG PREVIEW */}
       <section id="buildlog-preview" className="buildlog-preview">
         <div className="container">
           <div className="buildlog-preview__header">
             <div>
               <div className="section-label reveal">Build Log</div>
-              <h2 className="section-title reveal reveal-delay-1" style={{ marginBottom: 8 }}>
-                Building AI Products<br />in Public.
-              </h2>
-              <p className="section-sub reveal reveal-delay-2" style={{ marginBottom: 0 }}>
-                Architecture decisions, dumb mistakes, experiments that half-worked, and things I had to learn the hard way.
-              </p>
+              <h2 className="section-title reveal reveal-delay-1" style={{ marginBottom: 8 }}>Building AI Products<br />in Public.</h2>
+              <p className="section-sub reveal reveal-delay-2" style={{ marginBottom: 0 }}>Architecture decisions, dumb mistakes, experiments that half-worked, and things I had to learn the hard way.</p>
             </div>
             <button className="btn-secondary reveal reveal-delay-2" onClick={() => navigate('/build-log')}>
               All posts
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
-                <path d="M2.5 6.5h8M8 3.5l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2.5 6.5h8M8 3.5l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
           </div>
           <div className="buildlog-preview__grid">
-            {POSTS.slice(0, 3).map((post) => (
-              <BlogCard key={post.id} post={post} />
-            ))}
+            {POSTS.slice(0, 3).map((post) => <BlogCard key={post.id} post={post} />)}
           </div>
         </div>
       </section>
 
-      {/* SKILLS */}
       <section id="skills" className="skills">
         <div className="container">
           <div className="section-label reveal">Skills</div>
@@ -146,26 +120,20 @@ export default function Home() {
           <p className="section-sub reveal reveal-delay-2">A practical stack built through shipping real products, not coursework.</p>
           <div className="skills__grid">
             {[
-              { title: 'Frontend', items: ['React', 'JavaScript', 'HTML & CSS', 'Tailwind CSS'] },
-              { title: 'Backend', items: ['Node.js', 'Express', 'MongoDB', 'REST APIs'] },
-              { title: 'AI Development', items: ['OpenAI APIs', 'Claude workflows', 'Prompt engineering', 'Long-context systems', 'AI orchestration'] },
-              { title: 'Product', items: ['SaaS architecture', 'UX design', 'Product strategy', 'MVP development'] },
+              { title: 'Frontend', items: ['React','JavaScript','HTML & CSS','Tailwind CSS'] },
+              { title: 'Backend', items: ['Node.js','Express','MongoDB','REST APIs'] },
+              { title: 'AI Development', items: ['OpenAI APIs','Claude workflows','Prompt engineering','Long-context systems','AI orchestration'] },
+              { title: 'Product', items: ['SaaS architecture','UX design','Product strategy','MVP development'] },
             ].map((cat, i) => (
               <div key={cat.title} className={`skills__card reveal${i > 0 ? ` reveal-delay-${i}` : ''}`}>
-                <div className="skills__category">
-                  <span className="skills__dot" />
-                  {cat.title}
-                </div>
-                <ul className="skills__list">
-                  {cat.items.map((item) => <li key={item}>{item}</li>)}
-                </ul>
+                <div className="skills__category"><span className="skills__dot" />{cat.title}</div>
+                <ul className="skills__list">{cat.items.map((item) => <li key={item}>{item}</li>)}</ul>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CURRENTLY BUILDING */}
       <section id="building" className="building">
         <div className="container">
           <div className="section-label reveal">Status</div>
@@ -175,7 +143,7 @@ export default function Home() {
             {[
               { name: 'PlotDr', desc: 'AI-assisted long-form storytelling platform for authors', status: 'Building', cls: 'status-building' },
               { name: 'HookDr', desc: 'Short-form content retention & engagement analyzer', status: 'Building', cls: 'status-building' },
-              { name: 'AI Character Device', desc: 'Voice-enabled physical AI personality system', status: 'Prototype', cls: 'status-prototype' },
+              { name: 'AI Character Device', desc: 'Voice-enabled physical AI personality system', status: 'Complete', cls: 'status-complete' },
             ].map((item) => (
               <div key={item.name} className="building__item">
                 <div>
@@ -189,16 +157,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONTACT */}
       <section id="contact" className="contact">
         <div className="container">
           <div className="contact__grid">
             <div>
               <div className="section-label reveal">Contact</div>
               <h2 className="section-title reveal reveal-delay-1">Let's build<br />something.</h2>
-              <p className="section-sub reveal reveal-delay-2" style={{ marginBottom: 32 }}>
-                Have a project in mind, want to collaborate, or just want to talk shop about AI and software? I'd love to hear from you.
-              </p>
+              <p className="section-sub reveal reveal-delay-2" style={{ marginBottom: 32 }}>Have a project in mind, want to collaborate, or just want to talk shop about AI and software? I'd love to hear from you.</p>
               <form className="contact__form reveal reveal-delay-2" onSubmit={handleSubmit}>
                 <div className="contact__form-group">
                   <label htmlFor="name">Name</label>
@@ -214,13 +179,10 @@ export default function Home() {
                 </div>
                 <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
                   Send Message
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </button>
               </form>
             </div>
-
             <div className="contact__info reveal reveal-delay-3">
               {[
                 { label: 'Email', value: 'hello@davidlutrick.com', href: 'mailto:hello@davidlutrick.com' },

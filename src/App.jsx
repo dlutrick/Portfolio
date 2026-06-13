@@ -14,12 +14,7 @@ function ScrollToTop() {
 }
 
 function Layout({ children }) {
-  return (
-    <div style={{ paddingTop: 60 }}>
-      <Nav />
-      {children}
-    </div>
-  )
+  return <div style={{ paddingTop: 60 }}><Nav />{children}</div>
 }
 
 export default function App() {
