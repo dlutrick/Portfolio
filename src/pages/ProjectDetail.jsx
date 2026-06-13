@@ -39,7 +39,11 @@ export default function ProjectDetail() {
 
         <div className="project-detail__thumb" style={project.id === 'aidevice' ? { background: '#0b0b0b', padding: 0 } : {}}>
           {project.id === 'aidevice' ? (
-            <img src="/assets/dumdum-architecture.png" alt="AI Character Device architecture diagram" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 16 }} />
+            <img
+              src="/assets/moai-statue.jpg"
+              alt="AI Character Device — 3D printed moai head with NeoPixel LED ring glowing red"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16 }}
+            />
           ) : (
           <div className="project-detail__thumb-inner">
             <div className="project-detail__thumb-label">Screenshots & video coming soon</div>
